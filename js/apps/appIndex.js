@@ -15,3 +15,6 @@ import './pipesApp.js';
 import './fetchApp.js';
 import './stockTracker.js';
 import './tvHeatmap.js';
+import './tvMiniChart.js';
+import './tvMarketOverview.js';
+import './tvMarketSummary.js';

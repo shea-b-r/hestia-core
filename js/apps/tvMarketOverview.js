@@ -3,21 +3,17 @@ import { registry } from "../registry.js";
 
 class TvMarketOverview extends BaseApp {
     async render(app) {
-        const dateRange  = app.data.dateRange  || "12M";
-        const colorTheme = app.data.colorTheme || "dark";
-        const showChart  = app.data.showChart !== "false";
-
         const config = {
-            colorTheme,
-            dateRange,
-            showChart,
-            locale:                        "en",
-            width:                         "100%",
-            height:                        "100%",
-            largeChartUrl:                 "",
-            isTransparent:                 false,
-            showSymbolLogo:                true,
-            showFloatingTooltip:           false,
+            colorTheme:          app.data.colorTheme         || "dark",
+            dateRange:           app.data.dateRange          || "12M",
+            showChart:           app.data.showChart          !== "false",
+            showSymbolLogo:      app.data.showSymbolLogo     !== "false",
+            showFloatingTooltip: app.data.showFloatingTooltip === "true",
+            isTransparent:       app.data.isTransparent      === "true",
+            locale:              "en",
+            largeChartUrl:       "",
+            width:               "100%",
+            height:              "100%",
             plotLineColorGrowing:          "rgba(41, 98, 255, 1)",
             plotLineColorFalling:          "rgba(41, 98, 255, 1)",
             gridLineColor:                 "rgba(240, 243, 250, 0)",
@@ -37,43 +33,39 @@ class TvMarketOverview extends BaseApp {
                         { s: "INDEX:NKY",       d: "Nikkei 225" },
                         { s: "INDEX:DEU40",     d: "DAX Index" },
                         { s: "FOREXCOM:UKXGBP", d: "UK 100 Index" }
-                    ],
-                    originalTitle: "Indices"
+                    ]
                 },
                 {
-                    title: "Commodities",
+                    title: "Futures",
                     symbols: [
-                        { s: "CME_MINI:ES1!",  d: "S&P 500" },
-                        { s: "CME:6E1!",       d: "Euro" },
-                        { s: "COMEX:GC1!",     d: "Gold" },
-                        { s: "NYMEX:CL1!",     d: "WTI Crude Oil" },
-                        { s: "NYMEX:NG1!",     d: "Gas" },
-                        { s: "CBOT:ZC1!",      d: "Corn" }
-                    ],
-                    originalTitle: "Commodities"
+                        { s: "CME_MINI:ES1!", d: "S&P 500" },
+                        { s: "CME:6E1!",      d: "Euro" },
+                        { s: "COMEX:GC1!",    d: "Gold" },
+                        { s: "NYMEX:CL1!",    d: "WTI Crude Oil" },
+                        { s: "NYMEX:NG1!",    d: "Gas" },
+                        { s: "CBOT:ZC1!",     d: "Corn" }
+                    ]
                 },
                 {
                     title: "Bonds",
                     symbols: [
-                        { s: "CBOT:ZB1!",         d: "T-Bond" },
-                        { s: "CBOT:UB1!",         d: "Ultra T-Bond" },
-                        { s: "EUREX:FGBL1!",      d: "Euro Bund" },
-                        { s: "EUREX:FBTP1!",      d: "Euro BTP" },
-                        { s: "EUREX:FGBM1!",      d: "Euro BOBL" }
-                    ],
-                    originalTitle: "Bonds"
+                        { s: "CBOT:ZB1!",    d: "T-Bond" },
+                        { s: "CBOT:UB1!",    d: "Ultra T-Bond" },
+                        { s: "EUREX:FGBL1!", d: "Euro Bund" },
+                        { s: "EUREX:FBTP1!", d: "Euro BTP" },
+                        { s: "EUREX:FGBM1!", d: "Euro BOBL" }
+                    ]
                 },
                 {
                     title: "Forex",
                     symbols: [
-                        { s: "FX:EURUSD", d: "EUR to USD" },
-                        { s: "FX:GBPUSD", d: "GBP to USD" },
-                        { s: "FX:USDJPY", d: "USD to JPY" },
-                        { s: "FX:USDCHF", d: "USD to CHF" },
-                        { s: "FX:AUDUSD", d: "AUD to USD" },
-                        { s: "FX:USDCAD", d: "USD to CAD" }
-                    ],
-                    originalTitle: "Forex"
+                        { s: "FX:EURUSD", d: "EUR/USD" },
+                        { s: "FX:GBPUSD", d: "GBP/USD" },
+                        { s: "FX:USDJPY", d: "USD/JPY" },
+                        { s: "FX:USDCHF", d: "USD/CHF" },
+                        { s: "FX:AUDUSD", d: "AUD/USD" },
+                        { s: "FX:USDCAD", d: "USD/CAD" }
+                    ]
                 }
             ]
         };
@@ -117,11 +109,38 @@ registry.register('tv-market-overview', TvMarketOverview, {
         },
         {
             name: 'showChart',
-            label: 'Show Sparkline',
+            label: 'Sparklines',
             type: 'select',
             options: [
-                { value: 'true',  label: 'Yes' },
-                { value: 'false', label: 'No' }
+                { value: 'true',  label: 'Show' },
+                { value: 'false', label: 'Hide' }
+            ]
+        },
+        {
+            name: 'showSymbolLogo',
+            label: 'Symbol Logos',
+            type: 'select',
+            options: [
+                { value: 'true',  label: 'Show' },
+                { value: 'false', label: 'Hide' }
+            ]
+        },
+        {
+            name: 'showFloatingTooltip',
+            label: 'Floating Tooltip',
+            type: 'select',
+            options: [
+                { value: 'false', label: 'Off' },
+                { value: 'true',  label: 'On' }
+            ]
+        },
+        {
+            name: 'isTransparent',
+            label: 'Background',
+            type: 'select',
+            options: [
+                { value: 'false', label: 'Filled' },
+                { value: 'true',  label: 'Transparent' }
             ]
         },
         {

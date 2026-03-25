@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.tradingview.com)",
+      "WebFetch(domain:s3.tradingview.com)",
+      "WebFetch(domain:widgets.tradingview-widget.com)",
+      "WebSearch",
+      "Bash(curl -s \"https://widgets.tradingview-widget.com/wizards/tv-market-summary-wizard.js\")",
+      "Bash(curl -s \"https://widgets.tradingview-widget.com/wizards/tv-market-summary-wizard-preview.js\")",
+      "Bash(curl -s \"https://widgets.tradingview-widget.com/wizards/chunks/VQLRDLB6.js\")",
+      "Bash(curl -s https://widgets.tradingview-widget.com/wizards/chunks/WFARBPHC.js)",
+      "Bash(curl -s \"https://widgets.tradingview-widget.com/wizards/chunks/HYQR7VBR.js\")",
+      "Bash(python3 -c \"import sys,re; data=sys.stdin.read\\(\\); urls=re.findall\\(r''''https://[^\\\\s\"\"\\\\'''']+\\\\.js'''', data\\); print\\(''''\\\\n''''.join\\(sorted\\(set\\(urls\\)\\)\\)[:3000]\\)\")",
+      "Bash(curl -s \"https://widgets.tradingview-widget.com/wizards/chunks/HYQR7VBR.js\" -o C:/Windows/Temp/hyqr.js)",
+      "Bash(python3 -c \":*)"
+    ]
+  }
+}

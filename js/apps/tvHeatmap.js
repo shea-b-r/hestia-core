@@ -5,16 +5,18 @@ class TvHeatmap extends BaseApp {
     async render(app) {
         const config = {
             dataSource:       app.data.dataSource  || "SPX500",
-            exchange:         app.data.exchange    || "US",
+            exchanges:        [],
             grouping:         app.data.grouping    || "sector",
             blockSize:        app.data.blockSize   || "market_cap_basic",
             blockColor:       app.data.blockColor  || "change",
             colorTheme:       app.data.colorTheme  || "dark",
+            locale:           "en",
+            symbolUrl:        "",
             hasTopBar:        false,
             isDataSetEnabled: false,
-            isZoomEnabled:    true,
-            hasSymbolTooltip: true,
-            isMonoSize:       false,
+            isZoomEnabled:    app.data.isZoomEnabled  !== "false",
+            hasSymbolTooltip: app.data.hasSymbolTooltip !== "false",
+            isMonoSize:       app.data.isMonoSize === "true",
             width:            "100%",
             height:           "100%"
         };
@@ -48,10 +50,11 @@ registry.register('tv-heatmap', TvHeatmap, {
             label: 'Data Source',
             type: 'select',
             options: [
-                { value: 'SPX500',    label: 'S&P 500' },
-                { value: 'NASDAQ100', label: 'Nasdaq 100' },
-                { value: 'DJ30',      label: 'Dow Jones 30' },
-                { value: 'AllUSA',    label: 'All US Stocks' }
+                { value: 'SPX500',       label: 'S&P 500' },
+                { value: 'NASDAQ100',    label: 'Nasdaq 100' },
+                { value: 'DJ30',         label: 'Dow Jones 30' },
+                { value: 'Russell2000',  label: 'Russell 2000' },
+                { value: 'AllUSA',       label: 'All US Stocks' }
             ]
         },
         {
@@ -68,8 +71,8 @@ registry.register('tv-heatmap', TvHeatmap, {
             label: 'Tile Size By',
             type: 'select',
             options: [
-                { value: 'market_cap_basic',        label: 'Market Cap' },
-                { value: 'volume',                  label: 'Volume' },
+                { value: 'market_cap_basic',         label: 'Market Cap' },
+                { value: 'volume',                   label: 'Volume' },
                 { value: 'relative_volume_10d_calc', label: 'Relative Volume' }
             ]
         },
@@ -82,6 +85,33 @@ registry.register('tv-heatmap', TvHeatmap, {
                 { value: 'Perf.W',   label: 'Weekly' },
                 { value: 'Perf.1M',  label: 'Monthly' },
                 { value: 'Perf.YTD', label: 'YTD' }
+            ]
+        },
+        {
+            name: 'isZoomEnabled',
+            label: 'Enable Zoom',
+            type: 'select',
+            options: [
+                { value: 'true',  label: 'Yes' },
+                { value: 'false', label: 'No' }
+            ]
+        },
+        {
+            name: 'hasSymbolTooltip',
+            label: 'Symbol Tooltip',
+            type: 'select',
+            options: [
+                { value: 'true',  label: 'Show' },
+                { value: 'false', label: 'Hide' }
+            ]
+        },
+        {
+            name: 'isMonoSize',
+            label: 'Tile Sizing',
+            type: 'select',
+            options: [
+                { value: 'false', label: 'By metric' },
+                { value: 'true',  label: 'Equal size' }
             ]
         },
         {

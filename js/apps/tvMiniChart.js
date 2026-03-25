@@ -4,15 +4,18 @@ import { registry } from "../registry.js";
 class TvMiniChart extends BaseApp {
     async render(app) {
         const config = {
-            symbol:                      app.data.symbol      || "NASDAQ:AAPL",
-            width:                       "100%",
-            height:                      "100%",
-            locale:                      "en",
-            dateRange:                   app.data.dateRange   || "12M",
-            colorTheme:                  app.data.colorTheme  || "dark",
-            isTransparent:               false,
-            autosize:                    true,
-            largeChartUrl:               ""
+            symbol:          app.data.symbol       || "NASDAQ:AAPL",
+            dateRange:       app.data.dateRange    || "12M",
+            colorTheme:      app.data.colorTheme   || "dark",
+            isTransparent:   app.data.isTransparent === "true",
+            chartOnly:       app.data.chartOnly    === "true",
+            noTimeScale:     app.data.noTimeScale  === "true",
+            scalePosition:   app.data.scalePosition || "right",
+            locale:          "en",
+            autosize:        true,
+            largeChartUrl:   "",
+            width:           "100%",
+            height:          "100%"
         };
 
         const url = `https://s.tradingview.com/embed-widget/mini-symbol-overview/#${encodeURIComponent(JSON.stringify(config))}`;
@@ -50,12 +53,48 @@ registry.register('tv-mini-chart', TvMiniChart, {
             type: 'select',
             options: [
                 { value: '1D',  label: '1 Day' },
-                { value: '5D',  label: '5 Days' },
                 { value: '1M',  label: '1 Month' },
                 { value: '3M',  label: '3 Months' },
                 { value: '12M', label: '12 Months' },
                 { value: '60M', label: '5 Years' },
                 { value: 'ALL', label: 'All Time' }
+            ]
+        },
+        {
+            name: 'scalePosition',
+            label: 'Price Scale',
+            type: 'select',
+            options: [
+                { value: 'right', label: 'Right' },
+                { value: 'left',  label: 'Left' },
+                { value: 'no',    label: 'Hidden' }
+            ]
+        },
+        {
+            name: 'chartOnly',
+            label: 'Chart Only (hide price/change)',
+            type: 'select',
+            options: [
+                { value: 'false', label: 'No' },
+                { value: 'true',  label: 'Yes' }
+            ]
+        },
+        {
+            name: 'noTimeScale',
+            label: 'Time Axis',
+            type: 'select',
+            options: [
+                { value: 'false', label: 'Show' },
+                { value: 'true',  label: 'Hide' }
+            ]
+        },
+        {
+            name: 'isTransparent',
+            label: 'Background',
+            type: 'select',
+            options: [
+                { value: 'false', label: 'Filled' },
+                { value: 'true',  label: 'Transparent' }
             ]
         },
         {
