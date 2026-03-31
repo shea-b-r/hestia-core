@@ -18,3 +18,4 @@ import './tvHeatmap.js';
 import './tvMiniChart.js';
 import './tvMarketOverview.js';
 import './tvMarketSummary.js';
+import './upsStatus.js';
